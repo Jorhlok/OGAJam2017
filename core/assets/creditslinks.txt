@@ -19,15 +19,6 @@ https://opengameart.org/content/48x48-faces-2nd-sheet
 https://opengameart.org/content/48x48-faces-3rd-sheet
 https://opengameart.org/content/48x48-faces-4th-sheet
 https://opengameart.org/content/16x18-rpg-characters-hair-clothing-pack
-13, 12, 12, 16, or 53
-w = 16*(3+3+4) = 16*10 = 160
-h = 18*3*x = 702, 648, 648, 864, or 2862
-or 20x21 for angels
-w = 20*10   = 200
-h = 21*3*53 = 3339
-or 24x24
-w = 24*10 = 240
-h = 24*3*53 = 3816
 
 Tomcat94
 https://opengameart.org/content/16x16-emotes-for-rpgs-and-digital-pets
