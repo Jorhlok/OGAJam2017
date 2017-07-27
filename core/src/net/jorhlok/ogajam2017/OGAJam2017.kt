@@ -2,11 +2,11 @@ package net.jorhlok.ogajam2017
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
 import com.badlogic.gdx.graphics.g2d.Animation
-import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.maps.tiled.TmxMapLoader
+import com.badlogic.gdx.utils.Array
 import net.jorhlok.multiav.MultiAudioRegister
 import net.jorhlok.multiav.MultiGfxRegister
 import net.jorhlok.oops.ObjectOrientedPlaySet
@@ -15,7 +15,6 @@ class OGAJam2017 : ApplicationAdapter() {
     private var mgr: MultiGfxRegister? = null
     private var mar: MultiAudioRegister? = null
     private var oops: ObjectOrientedPlaySet? = null
-    var statetime = 0f
 
     override fun create() {
         mgr = MultiGfxRegister()
@@ -29,48 +28,24 @@ class OGAJam2017 : ApplicationAdapter() {
         oops = ObjectOrientedPlaySet()
         oops!!.FrameThreshold = 0.2f //low power game can probably handle 5 fps without physics breaking down
 
-//        oops!!.addTileMap("Outside", TmxMapLoader(InternalFileHandleResolver()).load("map/home.tmx"))
+        oops!!.addTileMap("Village", TmxMapLoader(InternalFileHandleResolver()).load("map/village.tmx"))
 
 //        oops!!.GlobalData["Bat"] = LabelledObject("int",0)
 
-//        oops!!.addMasterScript("title",Title("",mgr!!,mar!!))
-//        oops!!.launchScript("title")
+        oops!!.addMasterScript("title",Title("",mgr!!,mar!!))
+        oops!!.launchScript("title")
     }
 
     override fun render() {
         val deltatime = Gdx.graphics.deltaTime
-//        oops!!.step(deltatime)
-//        try {
-//            oops!!.draw(deltatime)
-//        } catch (e: Exception) {
-//            System.err.println("Error drawing!")
-//            e.printStackTrace()
-//        }
-//        if (oops!!.Quit) Gdx.app.exit()
-
-        mgr!!.camera.setToOrtho(false,640f,360f)
-        mgr!!.updateCam()
-        mgr!!.setBufScalar("main",1/16f)
-        val cam = mgr!!.getBufCam("main")!!
-        cam.setToOrtho(false,640/16f,360/16f)
-
-        statetime += deltatime
-        val looptime = 5f
-        if (statetime > looptime) statetime -= looptime
-        val name = "Girl"
-        mgr!!.startBuffer("main")
-        mgr!!.clear(0f,0.25f)
-        mgr!!.drawRgb("_${name}Portrait",0f,4f,10f)
-        mgr!!.drawRgb("${name}WalkUp",statetime,8f,10f)
-        mgr!!.drawRgb("${name}WalkLf",statetime,10f,10f)
-        mgr!!.drawRgb("${name}PunchRt",statetime,12f,10f)
-        mgr!!.drawRgb("${name}CastDn",statetime,14f,10f)
-        mgr!!.drawRgb("_${name}StandDn",0f,16f,10f)
-        mgr!!.drawString("dl8","The quick, brown fox jumps over the lazy dog.",320/16f,5f)
-        mgr!!.drawString("dl6","The quick, brown fox jumps over the lazy dog.",320/16f,3f)
-        mgr!!.stopBuffer()
-        mgr!!.drawBuffer("main")
-        mgr!!.flush()
+        oops!!.step(deltatime)
+        try {
+            oops!!.draw(deltatime)
+        } catch (e: Exception) {
+            System.err.println("Error drawing!")
+            e.printStackTrace()
+        }
+        if (oops!!.Quit) Gdx.app.exit()
     }
 
     override fun dispose() {
